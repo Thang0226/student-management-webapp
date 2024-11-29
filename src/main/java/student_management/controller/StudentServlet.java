@@ -26,7 +26,7 @@ public class StudentServlet extends HttpServlet {
 		}
 		switch (action) {
 			case "create":
-//				showCreateForm(request, response);
+				showCreateForm(request, response);
 				break;
 			case "edit":
 //				showEditForm(request, response);
@@ -35,11 +35,20 @@ public class StudentServlet extends HttpServlet {
 //				showDeleteForm(request, response);
 				break;
 			case "view":
-//				viewCustomer(request, response);
+//				viewStudent(request, response);
 				break;
 			default:
 				listStudents(request, response);
 				break;
+		}
+	}
+
+	private void showCreateForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("student/create.jsp");
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -56,7 +65,45 @@ public class StudentServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doPost(req, resp);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+			IOException {
+		String action = request.getParameter("action");
+
+		if (action == null) {
+			action = "";
+		}
+		switch (action) {
+			case "create":
+				createStudent(request, response);
+				break;
+			case "edit":
+//				updateStudent(request, response);
+				break;
+			case "delete":
+//				deleteStudent(request, response);
+				break;
+			default:
+				break;
+		}
+	}
+
+	private void createStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String name = request.getParameter("name");
+		String score_str = request.getParameter("score");
+		int score = Integer.parseInt(score_str);
+		int id;
+		do {
+			id = (int) (Math.random() * 10000 + 1);
+		} while (studentService.findById(id) != null);
+
+		Student student = new Student(id, name, score);
+		studentService.add(student);
+		request.setAttribute("message", "New student was created");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("student/create.jsp");
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
