@@ -32,7 +32,7 @@ public class StudentServlet extends HttpServlet {
 				showEditForm(request, response);
 				break;
 			case "delete":
-//				showDeleteForm(request, response);
+				showDeleteForm(request, response);
 				break;
 			case "view":
 //				viewStudent(request, response);
@@ -69,6 +69,23 @@ public class StudentServlet extends HttpServlet {
 		}
 	}
 
+	private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		Student student = studentService.findById(id);
+		RequestDispatcher dispatcher;
+		if (student == null) {
+			dispatcher = request.getRequestDispatcher("error-404.jsp");
+		} else {
+			request.setAttribute("student", student);
+			dispatcher = request.getRequestDispatcher("student/delete.jsp");
+		}
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	private void listStudents(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		List<Student> students = studentService.findAll();
 		request.setAttribute("students", students);
@@ -97,7 +114,7 @@ public class StudentServlet extends HttpServlet {
 				updateStudent(request, response);
 				break;
 			case "delete":
-//				deleteStudent(request, response);
+				deleteStudent(request, response);
 				break;
 			default:
 				break;
@@ -107,7 +124,12 @@ public class StudentServlet extends HttpServlet {
 	private void createStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String name = request.getParameter("name");
 		String score_str = request.getParameter("score");
-		int score = Integer.parseInt(score_str);
+		int score = 0;
+		try {
+			score = Integer.parseInt(score_str);
+		} catch (NumberFormatException e) {
+			System.out.println(e.getMessage());
+		}
 		int id;
 		do {
 			id = (int) (Math.random() * 10000 + 1);
@@ -144,5 +166,11 @@ public class StudentServlet extends HttpServlet {
 		} catch (ServletException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+
+	private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		studentService.remove(id);
+		response.sendRedirect("/students");
 	}
 }
