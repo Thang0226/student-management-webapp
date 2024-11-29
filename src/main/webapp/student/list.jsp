@@ -22,6 +22,9 @@
         .col_id {
             width: 50px;
         }
+        a {
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -29,6 +32,9 @@
 <h1>Students</h1>
 <p>
     <a href="/students?action=create">Create new student</a>
+</p>
+<p>
+    <a href="/students?action=search">Search student information by name</a>
 </p>
 <table>
     <thead>

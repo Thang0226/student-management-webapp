@@ -37,6 +37,8 @@ public class StudentServlet extends HttpServlet {
 			case "view":
 				viewStudent(request, response);
 				break;
+			case "search":
+				showSearchForm(request, response);
 			default:
 				listStudents(request, response);
 				break;
@@ -103,6 +105,15 @@ public class StudentServlet extends HttpServlet {
 		}
 	}
 
+	private void showSearchForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("student/search.jsp");
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	private void listStudents(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		List<Student> students = studentService.findAll();
 		request.setAttribute("students", students);
@@ -132,6 +143,9 @@ public class StudentServlet extends HttpServlet {
 				break;
 			case "delete":
 				deleteStudent(request, response);
+				break;
+			case "search":
+				searchStudent(request, response);
 				break;
 			default:
 				break;
@@ -189,5 +203,27 @@ public class StudentServlet extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		studentService.remove(id);
 		response.sendRedirect("/students");
+	}
+
+	private void searchStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String name = request.getParameter("name");
+		List<Student> students = studentService.findAll();
+		boolean found = false;
+		for (Student student : students) {
+			if (student.getName().equalsIgnoreCase(name)) {
+				request.setAttribute("student", student);
+				found = true;
+				break;
+			}
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("student/view.jsp");
+		if (!found) {
+			request.setAttribute("message", "Student not found!");
+		}
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
