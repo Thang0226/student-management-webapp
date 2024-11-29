@@ -35,7 +35,7 @@ public class StudentServlet extends HttpServlet {
 				showDeleteForm(request, response);
 				break;
 			case "view":
-//				viewStudent(request, response);
+				viewStudent(request, response);
 				break;
 			default:
 				listStudents(request, response);
@@ -78,6 +78,23 @@ public class StudentServlet extends HttpServlet {
 		} else {
 			request.setAttribute("student", student);
 			dispatcher = request.getRequestDispatcher("student/delete.jsp");
+		}
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private void viewStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		Student student = studentService.findById(id);
+		RequestDispatcher dispatcher;
+		if (student == null) {
+			dispatcher = request.getRequestDispatcher("error-404.jsp");
+		} else {
+			request.setAttribute("student", student);
+			dispatcher = request.getRequestDispatcher("student/view.jsp");
 		}
 		try {
 			dispatcher.forward(request, response);
