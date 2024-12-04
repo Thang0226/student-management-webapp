@@ -84,7 +84,21 @@ public class StudentDAO implements StudentService {
 
 	@Override
 	public void update(int id, Student student) {
-
+		try (
+				Connection conn = getConnection();
+				CallableStatement cstmt = conn.prepareCall("{call update_student(?,?,?,?)}")
+		) {
+			cstmt.setInt(1, id);
+			cstmt.setString(2, student.getName());
+			cstmt.setInt(3, student.getScore());
+			cstmt.setInt(4, student.getClass_id());
+			int rowAffected = cstmt.executeUpdate();
+			if (rowAffected == 0) {
+				throw new SQLException("Update failed!");
+			}
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
 	}
 
 	@Override

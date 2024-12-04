@@ -175,15 +175,21 @@ public class StudentServlet extends HttpServlet {
 	}
 
 	private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String id_str = request.getParameter("id");
-		int id = Integer.parseInt(id_str);
+		int id = Integer.parseInt(request.getParameter("id"));
 		String name = request.getParameter("name");
 		String score_str = request.getParameter("score");
-		int score = Integer.parseInt(score_str);
+		int score = 0;
+		try {
+			score = Integer.parseInt(score_str);
+		} catch (NumberFormatException e) {
+			System.out.println(e.getMessage());
+		}
+		int class_id = Integer.parseInt(request.getParameter("class_id"));
 
 		Student student = studentDAO.findById(id);
 		student.setName(name);
 		student.setScore(score);
+		student.setClass_id(class_id);
 		studentDAO.update(id, student);
 
 		request.setAttribute("message", "Student information was modified");
