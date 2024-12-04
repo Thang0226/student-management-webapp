@@ -12,7 +12,7 @@
 </head>
 <body>
 <h1>Edit student</h1>
-<p>
+<p style="color: green">
   <c:if test='${requestScope.message != null}'>
     <span class="message">${requestScope.message}</span>
   </c:if>

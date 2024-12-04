@@ -11,12 +11,12 @@ public class StudentServiceImpl implements StudentService {
 	private static Map<Integer, Student> students;
 	static {
 		students = new HashMap<>();
-		students.put(1, new Student(1, "Thang", 99));
-		students.put(2, new Student(2, "James", 98));
-		students.put(3, new Student(3, "Bob", 99));
-		students.put(4, new Student(4, "Mary", 99));
-		students.put(5, new Student(5, "John", 99));
-		students.put(6, new Student(6, "Jack", 99));
+		students.put(1, new Student(1, "Thang", 99, 1));
+		students.put(2, new Student(2, "James", 98, 2));
+		students.put(3, new Student(3, "Bob", 99, 3));
+		students.put(4, new Student(4, "Mary", 99, 1));
+		students.put(5, new Student(5, "John", 99, 2));
+		students.put(6, new Student(6, "Jack", 99, 3));
 	}
 
 	@Override

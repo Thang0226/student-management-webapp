@@ -1,5 +1,6 @@
 package student_management.controller;
 
+import student_management.DAO.StudentDAO;
 import student_management.model.Student;
 import student_management.service.StudentService;
 import student_management.service.StudentServiceImpl;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @WebServlet(name = "StudentServlet", urlPatterns = "/students")
 public class StudentServlet extends HttpServlet {
-	private final StudentService studentService = new StudentServiceImpl();
+	private final StudentDAO studentDAO = new StudentDAO();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
@@ -56,7 +57,7 @@ public class StudentServlet extends HttpServlet {
 
 	private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Student student = studentService.findById(id);
+		Student student = studentDAO.findById(id);
 		RequestDispatcher dispatcher;
 		if (student == null) {
 			dispatcher = request.getRequestDispatcher("error_404.jsp");
@@ -73,7 +74,7 @@ public class StudentServlet extends HttpServlet {
 
 	private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Student student = studentService.findById(id);
+		Student student = studentDAO.findById(id);
 		RequestDispatcher dispatcher;
 		if (student == null) {
 			dispatcher = request.getRequestDispatcher("error-404.jsp");
@@ -90,7 +91,7 @@ public class StudentServlet extends HttpServlet {
 
 	private void viewStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		Student student = studentService.findById(id);
+		Student student = studentDAO.findById(id);
 		RequestDispatcher dispatcher;
 		if (student == null) {
 			dispatcher = request.getRequestDispatcher("error-404.jsp");
@@ -115,7 +116,7 @@ public class StudentServlet extends HttpServlet {
 	}
 
 	private void listStudents(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		List<Student> students = studentService.findAll();
+		List<Student> students = studentDAO.findAll();
 		request.setAttribute("students", students);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("student/list.jsp");
@@ -164,10 +165,10 @@ public class StudentServlet extends HttpServlet {
 		int id;
 		do {
 			id = (int) (Math.random() * 10000 + 1);
-		} while (studentService.findById(id) != null);
+		} while (studentDAO.findById(id) != null);
 
 		Student student = new Student(id, name, score);
-		studentService.add(student);
+		studentDAO.add(student);
 		request.setAttribute("message", "New student was created");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("student/create.jsp");
 		try {
@@ -184,10 +185,10 @@ public class StudentServlet extends HttpServlet {
 		String score_str = request.getParameter("score");
 		int score = Integer.parseInt(score_str);
 
-		Student student = studentService.findById(id);
+		Student student = studentDAO.findById(id);
 		student.setName(name);
 		student.setScore(score);
-		studentService.update(id, student);
+		studentDAO.update(id, student);
 
 		request.setAttribute("message", "Student information was modified");
 		request.setAttribute("student", student);
@@ -201,13 +202,13 @@ public class StudentServlet extends HttpServlet {
 
 	private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		studentService.remove(id);
+		studentDAO.remove(id);
 		response.sendRedirect("/students");
 	}
 
 	private void searchStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String name = request.getParameter("name");
-		List<Student> students = studentService.findAll();
+		List<Student> students = studentDAO.findAll();
 		boolean found = false;
 		for (Student student : students) {
 			if (student.getName().equalsIgnoreCase(name)) {

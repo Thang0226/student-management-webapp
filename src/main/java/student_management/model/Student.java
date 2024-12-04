@@ -4,13 +4,15 @@ public class Student {
 	private int id;
 	private String name;
 	private int score;
+	private int class_id;
 
 	public Student() {}
 
-	public Student(int id, String name, int score) {
+	public Student(int id, String name, int score, int class_id) {
 		this.id = id;
 		this.name = name;
 		this.score = score;
+		this.class_id = class_id;
 	}
 
 	public int getId() {
@@ -35,6 +37,14 @@ public class Student {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public int getClass_id() {
+		return class_id;
+	}
+
+	public void setClass_id(int class_id) {
+		this.class_id = class_id;
 	}
 }
 
