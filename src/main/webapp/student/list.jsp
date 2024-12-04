@@ -42,8 +42,9 @@
         <th class="col_id">ID</th>
         <th>Name</th>
         <th>Score</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th>Class</th>
+        <th style="font-style: italic">Edit</th>
+        <th style="font-style: italic">Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -52,6 +53,24 @@
             <td class="col_id">${student.id}</td>
             <td><a href="/students?action=view&id=${student.id}">${student.name}</a></td>
             <td>${student.score}</td>
+            <td>
+                <c:choose>
+                    <c:when test="${student.class_id == 1}">
+                        <c:forEach items="${requestScope.classes}" var="class_item">
+                            <c:if test="${class_item.id == 1}">${class_item.name}</c:if>
+                        </c:forEach>
+                    </c:when>
+                    <c:when test="${student.class_id == 2}">
+                    <c:forEach items="${requestScope.classes}" var="class_item">
+                        <c:if test="${class_item.id == 2}">${class_item.name}</c:if>
+                    </c:forEach>
+                    </c:when>
+                    <c:when test="${student.class_id == 3}">
+                    <c:forEach items="${requestScope.classes}" var="class_item">
+                        <c:if test="${class_item.id == 3}">${class_item.name}</c:if>
+                    </c:forEach>
+                    </c:when>
+                </c:choose>
             <td><a href="/students?action=edit&id=${student.id}">edit</a></td>
             <td><a href="/students?action=delete&id=${student.id}">delete</a></td>
         </tr>

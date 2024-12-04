@@ -1,6 +1,7 @@
 package student_management.controller;
 
 import student_management.DAO.StudentDAO;
+import student_management.model.Classes;
 import student_management.model.Student;
 import student_management.service.StudentService;
 import student_management.service.StudentServiceImpl;
@@ -118,6 +119,8 @@ public class StudentServlet extends HttpServlet {
 	private void listStudents(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		List<Student> students = studentDAO.findAll();
 		request.setAttribute("students", students);
+		List<Classes> classList = studentDAO.getAllClasses();
+		request.setAttribute("classes", classList);
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("student/list.jsp");
 		try {

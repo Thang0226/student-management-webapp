@@ -81,6 +81,13 @@ begin
 end $
 delimiter ;
 
+delimiter $
+create procedure list_classes ()
+begin
+	select * from class;
+end $
+delimiter ;
+
 
 
 

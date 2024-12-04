@@ -1,6 +1,7 @@
 package student_management.DAO;
 
 import student_management.model.Student;
+import student_management.model.Classes;
 import student_management.service.StudentService;
 
 import java.sql.*;
@@ -115,6 +116,25 @@ public class StudentDAO implements StudentService {
 		} catch (SQLException e) {
 			printSQLException(e);
 		}
+	}
+
+	public List<Classes> getAllClasses() {
+		List<Classes> classes_list = new ArrayList<>();
+		try (
+				Connection conn = getConnection();
+				CallableStatement cstmt = conn.prepareCall("{call list_classes()}")
+		) {
+			ResultSet rs = cstmt.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				Classes newClass = new Classes(id, name);
+				classes_list.add(newClass);
+			}
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
+		return classes_list;
 	}
 
 	private void printSQLException(SQLException ex) {
