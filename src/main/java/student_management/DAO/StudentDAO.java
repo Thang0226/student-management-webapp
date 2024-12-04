@@ -44,8 +44,21 @@ public class StudentDAO implements StudentService {
 	}
 
 	@Override
-	public void add(Student student) {
-
+	public void add(String name, int score, int class_id) {
+		try (
+				Connection conn = getConnection();
+				CallableStatement cstmt = conn.prepareCall("{call add_student(?,?,?)}")
+		) {
+			cstmt.setString(1, name);
+			cstmt.setInt(2, score);
+			cstmt.setInt(3, class_id);
+			int rowAffected = cstmt.executeUpdate();
+			if (rowAffected == 0) {
+				throw new SQLException("Insert failed!");
+			}
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
 	}
 
 	@Override

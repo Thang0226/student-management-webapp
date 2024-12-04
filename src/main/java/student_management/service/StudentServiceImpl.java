@@ -25,8 +25,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public void add(Student student) {
-		students.put(student.getId(), student);
+	public void add(String name, int score, int class_id) {
 	}
 
 	@Override

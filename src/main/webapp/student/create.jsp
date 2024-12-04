@@ -39,6 +39,17 @@
                 <td><input type="text" name="score" id="score"></td>
             </tr>
             <tr>
+                <td>Class: </td>
+                <td>
+                    <input type="radio" id="class1" name="class_id" value="1">
+                    <label for="class1">Java Backend</label><br>
+                    <input type="radio" id="class2" name="class_id" value="2">
+                    <label for="class2">Java Frontend</label><br>
+                    <input type="radio" id="class3" name="class_id" value="3">
+                    <label for="class3">PHP Backend</label>
+                </td>
+            </tr>
+            <tr>
                 <td></td>
                 <td><input type="submit" value="Create student"></td>
             </tr>

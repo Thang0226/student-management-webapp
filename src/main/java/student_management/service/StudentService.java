@@ -7,7 +7,7 @@ import java.util.List;
 public interface StudentService {
 	List<Student> findAll();
 
-	void add(Student student);
+	void add(String name, int score, int class_id);
 
 	Student findById(int id);
 

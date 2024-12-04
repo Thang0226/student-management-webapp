@@ -154,28 +154,24 @@ public class StudentServlet extends HttpServlet {
 	}
 
 	private void createStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//		String name = request.getParameter("name");
-//		String score_str = request.getParameter("score");
-//		int score = 0;
-//		try {
-//			score = Integer.parseInt(score_str);
-//		} catch (NumberFormatException e) {
-//			System.out.println(e.getMessage());
-//		}
-//		int id;
-//		do {
-//			id = (int) (Math.random() * 10000 + 1);
-//		} while (studentDAO.findById(id) != null);
-//
-//		Student student = new Student(id, name, score);
-//		studentDAO.add(student);
-//		request.setAttribute("message", "New student was created");
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("student/create.jsp");
-//		try {
-//			dispatcher.forward(request, response);
-//		} catch (ServletException e) {
-//			System.out.println(e.getMessage());
-//		}
+		String name = request.getParameter("name");
+		String score_str = request.getParameter("score");
+		int score = 0;
+		try {
+			score = Integer.parseInt(score_str);
+		} catch (NumberFormatException e) {
+			System.out.println(e.getMessage());
+		}
+		int class_id = Integer.parseInt(request.getParameter("class_id"));
+
+		studentDAO.add(name, score, class_id);
+		request.setAttribute("message", "New student was created");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("student/create.jsp");
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private void updateStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
