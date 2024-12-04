@@ -6,8 +6,6 @@ public class Student {
 	private int score;
 	private int class_id;
 
-	public Student() {}
-
 	public Student(int id, String name, int score, int class_id) {
 		this.id = id;
 		this.name = name;

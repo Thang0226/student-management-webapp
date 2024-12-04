@@ -4,6 +4,7 @@ import student_management.model.Student;
 import student_management.service.StudentService;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAO implements StudentService {
@@ -13,7 +14,7 @@ public class StudentDAO implements StudentService {
 
 	protected Connection getConnection() throws SQLException {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			System.out.println(e.getMessage());
 		}
@@ -22,7 +23,24 @@ public class StudentDAO implements StudentService {
 
 	@Override
 	public List<Student> findAll() {
-		return null;
+		List<Student> students = new ArrayList<>();
+		try (
+				Connection conn = getConnection();
+				CallableStatement cstmt = conn.prepareCall("{call list_students()}")
+		) {
+			ResultSet rs = cstmt.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				int score = rs.getInt("score");
+				int class_id = rs.getInt("class_id");
+				Student student = new Student(id, name, score, class_id);
+				students.add(student);
+			}
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
+		return students;
 	}
 
 	@Override
@@ -43,5 +61,21 @@ public class StudentDAO implements StudentService {
 	@Override
 	public void remove(int id) {
 
+	}
+
+	private void printSQLException(SQLException ex) {
+		for (Throwable e : ex) {
+			if (e instanceof SQLException) {
+				e.printStackTrace(System.err);
+				System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+				System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+				System.err.println("Message: " + e.getMessage());
+				Throwable t = ex.getCause();
+				while (t != null) {
+					System.out.println("Cause: " + t);
+					t = t.getCause();
+				}
+			}
+		}
 	}
 }
