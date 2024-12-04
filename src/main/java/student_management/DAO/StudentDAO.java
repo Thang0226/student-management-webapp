@@ -50,7 +50,23 @@ public class StudentDAO implements StudentService {
 
 	@Override
 	public Student findById(int id) {
-		return null;
+		Student student = null;
+		try (
+				Connection conn = getConnection();
+				CallableStatement cstmt = conn.prepareCall("{call find_student(?)}")
+		) {
+			cstmt.setInt(1, id);
+			ResultSet rs = cstmt.executeQuery();
+			if (rs.next()) {
+				String name = rs.getString("name");
+				int score = rs.getInt("score");
+				int class_id = rs.getInt("class_id");
+				student = new Student(id, name, score, class_id);
+			}
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
+		return student;
 	}
 
 	@Override
@@ -60,7 +76,18 @@ public class StudentDAO implements StudentService {
 
 	@Override
 	public void remove(int id) {
-
+		try (
+				Connection conn = getConnection();
+				CallableStatement cstmt = conn.prepareCall("{call delete_student(?)}")
+		) {
+			cstmt.setInt(1, id);
+			int rowAffected = cstmt.executeUpdate();
+			if (rowAffected == 0) {
+				throw new SQLException("Student with id " + id + " not found");
+			}
+		} catch (SQLException e) {
+			printSQLException(e);
+		}
 	}
 
 	private void printSQLException(SQLException ex) {
