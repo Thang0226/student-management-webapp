@@ -13,50 +13,63 @@
   <title>Edit Student Information</title>
   <link rel="stylesheet" href="../styles/bootstrap.min.css">
 </head>
-<body>
-<h1>Edit student</h1>
-<p style="color: green">
-  <c:if test='${requestScope.message != null}'>
-    <span class="message">${requestScope.message}</span>
-  </c:if>
-</p>
-<p>
-  <a href="/students">Back to Home page</a>
-</p>
-<form method="post">
-  <fieldset>
-    <legend>Student information</legend>
-    <table>
-      <tr>
-        <td>Name: </td>
-        <td><input type="text" name="name" id="name" value="${requestScope.student.name}"></td>
-      </tr>
-      <tr>
-        <td>Score: </td>
-        <td><input type="text" name="score" id="score" value="${requestScope.student.score}"></td>
-      </tr>
-      <tr>
-        <td>Class: </td>
-        <td>
-          <input type="radio" id="class1" name="class_id" value="1"
-                 <c:if test="${requestScope.student.class_id == 1}">checked</c:if>>
-          <label for="class1">Java Backend</label><br>
-          <input type="radio" id="class2" name="class_id" value="2"
-                 <c:if test="${requestScope.student.class_id == 2}">checked</c:if>>
-          <label for="class2">Java Frontend</label><br>
-          <input type="radio" id="class3" name="class_id" value="3"
-                 <c:if test="${requestScope.student.class_id == 3}">checked</c:if>>
-          <label for="class3">PHP Backend</label>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><input type="submit" value="Update student"></td>
-      </tr>
-    </table>
-  </fieldset>
-</form>
+</head>
+<body class="bg-light py-5">
 
+<div class="container">
+  <!-- Page Title -->
+  <h1 class="text-primary text-center mb-4">Edit Student</h1>
+
+  <!-- Message Section -->
+  <p class="text-center">
+    <c:if test='${requestScope.message != null}'>
+      <span class="text-success fw-bold">${requestScope.message}</span>
+    </c:if>
+  </p>
+
+  <!-- Back to Home Link -->
+  <p class="text-center">
+    <a href="/students" class="btn btn-success">Back to Home Page</a>
+  </p>
+
+  <!-- Form Section -->
+  <form method="post" class="p-4 bg-white border rounded col-md-12 col-lg-6 mx-auto">
+    <fieldset>
+      <legend class="text-primary">Student Information</legend>
+      <div class="mb-3">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" class="form-control" name="name" id="name" value="${requestScope.student.name}">
+      </div>
+      <div class="mb-3">
+        <label for="score" class="form-label">Score:</label>
+        <input type="text" class="form-control" name="score" id="score" value="${requestScope.student.score}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Class:</label>
+        <div style="padding-left: 50px">
+          <input type="radio" class="form-check-input" id="class1" name="class_id" value="1"
+                 <c:if test="${requestScope.student.class_id == 1}">checked</c:if>>
+          <label for="class1" class="form-check-label">Java Backend</label>
+        </div>
+        <div style="padding-left: 50px">
+          <input type="radio" class="form-check-input" id="class2" name="class_id" value="2"
+                 <c:if test="${requestScope.student.class_id == 2}">checked</c:if>>
+          <label for="class2" class="form-check-label">Java Frontend</label>
+        </div>
+        <div style="padding-left: 50px">
+          <input type="radio" class="form-check-input" id="class3" name="class_id" value="3"
+                 <c:if test="${requestScope.student.class_id == 3}">checked</c:if>>
+          <label for="class3" class="form-check-label">PHP Backend</label>
+        </div>
+      </div>
+      <div class="text-center">
+        <input type="submit" value="Update Student" class="btn btn-primary">
+      </div>
+    </fieldset>
+  </form>
+</div>
+
+<!-- Bootstrap JS (Optional, for interactivity) -->
 <script src="../styles/bootstrap.bundle.min.js"></script>
 </body>
 </html>

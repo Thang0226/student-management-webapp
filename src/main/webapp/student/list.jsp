@@ -17,6 +17,14 @@
             text-align: center;
             vertical-align: middle;
         }
+        td a {
+            color: black;
+        }
+        button a {
+            color: white;
+            text-decoration: none;
+            text-transform: capitalize;
+        }
     </style>
 </head>
 
@@ -81,7 +89,9 @@
             <c:forEach items="${requestScope.students}" var="student">
                 <tr>
                     <th scope="row">${student.id}</th>
-                    <td><a href="/students?action=view&id=${student.id}">${student.name}</a></td>
+                    <td>
+                        <a href="/students?action=view&id=${student.id}">${student.name}</a>
+                    </td>
                     <td>${student.score}</td>
                     <td>
                         <c:choose>
