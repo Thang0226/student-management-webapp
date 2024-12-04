@@ -9,12 +9,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Create new student</title>
-    <style>
-        .message{
-            color:green;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Student</title>
+    <link rel="stylesheet" href="../styles/bootstrap.min.css">
 </head>
 <body>
 <h1>Create new student</h1>
@@ -24,7 +21,7 @@
     </c:if>
 </p>
 <p>
-    <a href="/students">Back to student list</a>
+    <a href="/students">Back to Home page</a>
 </p>
 <form method="post">
     <fieldset>
@@ -56,5 +53,7 @@
         </table>
     </fieldset>
 </form>
+
+<script src="../styles/bootstrap.bundle.min.js"></script>
 </body>
 </html>

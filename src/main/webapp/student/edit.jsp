@@ -9,7 +9,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-  <title>Edit student</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Student Information</title>
+  <link rel="stylesheet" href="../styles/bootstrap.min.css">
 </head>
 <body>
 <h1>Edit student</h1>
@@ -19,7 +21,7 @@
   </c:if>
 </p>
 <p>
-  <a href="/students">Back to student list</a>
+  <a href="/students">Back to Home page</a>
 </p>
 <form method="post">
   <fieldset>
@@ -54,5 +56,7 @@
     </table>
   </fieldset>
 </form>
+
+<script src="../styles/bootstrap.bundle.min.js"></script>
 </body>
 </html>

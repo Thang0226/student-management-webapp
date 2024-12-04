@@ -39,8 +39,6 @@ public class StudentServlet extends HttpServlet {
 			case "view":
 				viewStudent(request, response);
 				break;
-			case "search":
-				showSearchForm(request, response);
 			default:
 				listStudents(request, response);
 				break;
@@ -100,15 +98,6 @@ public class StudentServlet extends HttpServlet {
 			request.setAttribute("student", student);
 			dispatcher = request.getRequestDispatcher("student/view.jsp");
 		}
-		try {
-			dispatcher.forward(request, response);
-		} catch (ServletException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-
-	private void showSearchForm(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("student/search.jsp");
 		try {
 			dispatcher.forward(request, response);
 		} catch (ServletException e) {
