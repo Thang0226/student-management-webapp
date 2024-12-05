@@ -45,21 +45,23 @@
       <tr>
         <td><strong>Class:</strong></td>
         <td>
-          <div>
-            <input type="radio" class="form-check-input" id="class1" name="class_id" value="1"
-                   <c:if test="${requestScope.student.class_id == 1}">checked</c:if>>
-            <label for="class1" class="form-check-label">Java Backend</label>
-          </div>
-          <div>
-            <input type="radio" class="form-check-input" id="class2" name="class_id" value="2"
-                   <c:if test="${requestScope.student.class_id == 2}">checked</c:if>>
-            <label for="class2" class="form-check-label">Java Frontend</label>
-          </div>
-          <div>
-            <input type="radio" class="form-check-input" id="class3" name="class_id" value="3"
-                   <c:if test="${requestScope.student.class_id == 3}">checked</c:if>>
-            <label for="class3" class="form-check-label">PHP Backend</label>
-          </div>
+          <c:choose>
+            <c:when test="${requestScope.student.class_id == 1}">
+              <c:forEach items="${requestScope.classes}" var="class_item">
+                <c:if test="${class_item.id == 1}">${class_item.name}</c:if>
+              </c:forEach>
+            </c:when>
+            <c:when test="${requestScope.student.class_id == 2}">
+              <c:forEach items="${requestScope.classes}" var="class_item">
+                <c:if test="${class_item.id == 2}">${class_item.name}</c:if>
+              </c:forEach>
+            </c:when>
+            <c:when test="${requestScope.student.class_id == 3}">
+              <c:forEach items="${requestScope.classes}" var="class_item">
+                <c:if test="${class_item.id == 3}">${class_item.name}</c:if>
+              </c:forEach>
+            </c:when>
+          </c:choose>
         </td>
       </tr>
       </tbody>

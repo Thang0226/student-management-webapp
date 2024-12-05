@@ -62,6 +62,8 @@ public class StudentServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("error_404.jsp");
 		} else {
 			request.setAttribute("student", student);
+			List<Classes> classList = studentDAO.getAllClasses();
+			request.setAttribute("classes", classList);
 			dispatcher = request.getRequestDispatcher("student/edit.jsp");
 		}
 		try {
@@ -79,6 +81,8 @@ public class StudentServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("error-404.jsp");
 		} else {
 			request.setAttribute("student", student);
+			List<Classes> classList = studentDAO.getAllClasses();
+			request.setAttribute("classes", classList);
 			dispatcher = request.getRequestDispatcher("student/delete.jsp");
 		}
 		try {
@@ -96,6 +100,8 @@ public class StudentServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("error-404.jsp");
 		} else {
 			request.setAttribute("student", student);
+			List<Classes> classList = studentDAO.getAllClasses();
+			request.setAttribute("classes", classList);
 			dispatcher = request.getRequestDispatcher("student/view.jsp");
 		}
 		try {

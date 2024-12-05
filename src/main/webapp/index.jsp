@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="styles/bootstrap.min.css">
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<a href="/students">Student List</a>
+<div class="container">
+    <h1><%= "Hello World!" %>
+    </h1>
+    <a href="/students">Student List</a>
+</div>
 
 <script src="styles/bootstrap.bundle.min.js"></script>
 </body>

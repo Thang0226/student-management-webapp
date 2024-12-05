@@ -51,19 +51,12 @@
 
             <!-- Class Selection -->
             <div class="mb-3">
-                <label class="form-label">Class:</label>
-                <div style="padding-left: 50px">
-                    <input type="radio" class="form-check-input" id="class1" name="class_id" value="1">
-                    <label for="class1" class="form-check-label">Java Backend</label>
-                </div>
-                <div style="padding-left: 50px">
-                    <input type="radio" class="form-check-input" id="class2" name="class_id" value="2">
-                    <label for="class2" class="form-check-label">Java Frontend</label>
-                </div>
-                <div style="padding-left: 50px">
-                    <input type="radio" class="form-check-input" id="class3" name="class_id" value="3">
-                    <label for="class3" class="form-check-label">PHP Backend</label>
-                </div>
+                <label for="class" class="form-label">Class:</label>
+                <select class="form-select" name="class_id" id="class">
+                    <option value="1">Java Backend</option>
+                    <option value="2">Java Frontend</option>
+                    <option value="3">PHP Backend</option>
+                </select>
             </div>
 
             <!-- Submit Button -->
