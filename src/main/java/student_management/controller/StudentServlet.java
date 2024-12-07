@@ -217,6 +217,8 @@ public class StudentServlet extends HttpServlet {
 				break;
 			}
 		}
+		List<Classes> classList = studentDAO.getAllClasses();
+		request.setAttribute("classes", classList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("student/view.jsp");
 		if (!found) {
 			request.setAttribute("message", "Student not found!");
